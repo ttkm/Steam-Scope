@@ -169,7 +169,7 @@ class IdFinderManager {
         const loadTxt = async (path) => {
             try {
                 let resp = await fetch(path);
-                if (!resp.ok) resp = await fetch('/steam/' + path);
+                if (!resp.ok) resp = await fetch('/' + path);
                 if (!resp.ok) return [];
                 const text = await resp.text();
                 return text.split(/\r?\n/).map(x => x.trim().toLowerCase()).filter(Boolean);

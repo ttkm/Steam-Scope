@@ -75,7 +75,7 @@ export async function extractUser(request, env) {
 export async function handleAuthLogin(request, env) {
   const siteUrl = getSiteUrl(env, request);
   const url = new URL(request.url);
-  const returnTo = url.searchParams.get('return_to') || '/steam/index.html';
+  const returnTo = url.searchParams.get('return_to') || '/';
   const callbackUrl = `${siteUrl}/api/auth/callback?return_to=${encodeURIComponent(returnTo)}`;
 
   const params = new URLSearchParams({
@@ -95,7 +95,7 @@ export async function handleAuthLogin(request, env) {
 export async function handleAuthCallback(request, env) {
   const url = new URL(request.url);
   const siteUrl = getSiteUrl(env, request);
-  const fallback = `${siteUrl}/steam/index.html`;
+  const fallback = `${siteUrl}/`;
 
   const verifyParams = new URLSearchParams();
   for (const [key, value] of url.searchParams.entries()) {
@@ -176,7 +176,7 @@ export async function handleAuthCallback(request, env) {
   const isSecure = siteUrl.startsWith('https');
   const cookie = `steamscope_session=${jwt}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400${isSecure ? '; Secure' : ''}`;
 
-  const returnTo = url.searchParams.get('return_to') || '/steam/index.html';
+  const returnTo = url.searchParams.get('return_to') || '/';
   const dest = returnTo.startsWith('/') ? `${siteUrl}${returnTo}` : fallback;
 
   return new Response(null, { status: 302, headers: { 'Location': dest, 'Set-Cookie': cookie } });
@@ -186,7 +186,7 @@ export function handleAuthLogout(request, env) {
   const siteUrl = getSiteUrl(env, request);
   const isSecure = siteUrl.startsWith('https');
   const cookie = `steamscope_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${isSecure ? '; Secure' : ''}`;
-  return new Response(null, { status: 302, headers: { 'Location': `${siteUrl}/steam/index.html`, 'Set-Cookie': cookie } });
+  return new Response(null, { status: 302, headers: { 'Location': `${siteUrl}/`, 'Set-Cookie': cookie } });
 }
 
 export async function handleAuthMe(request, env) {
