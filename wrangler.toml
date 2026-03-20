@@ -1,0 +1,25 @@
+name = "steam-db-api"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "."
+
+[[r2_buckets]]
+binding = "R2_BUCKET"
+bucket_name = "groups"
+
+# D1 database for groups/search (can get full; keep separate from users).
+# Create it:  npx wrangler d1 create steamscope-db
+# Then:  npx wrangler d1 migrations apply steamscope-db --remote
+[[d1_databases]]
+binding = "DB"
+database_name = "steamscope-db"
+database_id = "a391a8ad-1f0a-4026-9a46-2dc320095662"
+
+# Separate D1 for users/auth/rate-limits (avoids "Exceeded maximum DB size" when groups DB is full).
+# 1) npx wrangler d1 create steamscope-users  2) Replace database_id below with the id from output
+# 3) npx wrangler d1 migrations apply steamscope-users --remote
+# 4) In Pages: Settings → Functions → D1 bindings → add USERS_DB → select steamscope-users
+[[d1_databases]]
+binding = "USERS_DB"
+database_name = "steamscope-users"
+database_id = "278c642a-c8f9-4a43-ab80-f2bb35ebbf11"
+migrations_dir = "migrations-users"

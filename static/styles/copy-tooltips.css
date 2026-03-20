@@ -1,0 +1,45 @@
+/*
+ * copy tooltips
+ * copy to clipboard ids
+ * font mono copied states
+ */
+
+#steam32_id,
+#steam3_id,
+#steam_id64,
+#vanity_id {
+  user-select: none;
+  cursor: grab;
+  transition: all 0.3s ease;
+  color: var(--text-secondary) !important;
+  display: inline-block;
+  width: auto;
+}
+
+#steam32_id:hover,
+#steam3_id:hover,
+#steam_id64:hover,
+#vanity_id:hover {
+  color: var(--accent) !important;
+}
+
+#steam32_id.copied,
+#steam3_id.copied,
+#steam_id64.copied,
+#vanity_id.copied {
+  color: var(--accent) !important;
+}
+
+.font-mono {
+  position: relative;
+  cursor: grab;
+  transition: color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.font-mono.copied {
+  color: var(--accent) !important;
+}
+
+.space-y-4 .font-mono {
+  cursor: default;
+}

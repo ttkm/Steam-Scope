@@ -1,0 +1,26 @@
+# Wrangler
+.wrangler/
+node_modules/
+
+# Environment files
+.env
+*.env
+
+# Python (not needed in production)
+*.pyc
+__pycache__/
+
+# Large data files (these go to R2, not GitHub)
+data-part*
+groups_database.jsonl
+*.jsonl
+
+# Local development files (not for production)
+dev-server.py
+requirements-dev.txt
+test-api.ps1
+steamBK/
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,67 @@
+/*
+ * content transform
+ * visibility
+ * backdrop blur
+ * content transform
+ */
+
+.subscription-modal {
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.18s ease, visibility 0.18s ease;
+}
+
+.subscription-modal:not(.hidden) {
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.subscription-modal.subscription-modal-visible {
+  opacity: 1;
+}
+
+.subscription-modal.subscription-modal-closing {
+  opacity: 0;
+}
+
+.subscription-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.40);
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+  opacity: 0;
+  transition: opacity 0.2s ease, backdrop-filter 0.2s ease, -webkit-backdrop-filter 0.2s ease;
+  cursor: pointer;
+}
+
+.subscription-modal.subscription-modal-visible .subscription-modal-backdrop {
+  opacity: 1;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.subscription-modal.subscription-modal-closing .subscription-modal-backdrop {
+  opacity: 0;
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+}
+
+.subscription-modal-content {
+  position: relative;
+  z-index: 1;
+  transform: scale(0.97);
+  opacity: 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.subscription-modal.subscription-modal-visible .subscription-modal-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.subscription-modal.subscription-modal-closing .subscription-modal-content {
+  transform: scale(0.98);
+  opacity: 0;
+}

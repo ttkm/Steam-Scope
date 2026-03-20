@@ -1,0 +1,177 @@
+/*
+ * header profile block
+ * settings trigger
+ * dropdown
+ */
+
+.header-profile-block.hidden,
+.settings-menu.hidden {
+  display: none !important;
+}
+
+.header-profile-block {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: var(--bg-secondary);
+  border: 2px solid var(--bg-tertiary);
+  border-radius: 0.75rem;
+  padding: 0.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.header-profile-block:hover {
+  border-color: rgba(178, 148, 187, 0.35);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.header-profile-block .header-avatar-wrap {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid var(--bg-tertiary);
+}
+
+.header-profile-block .header-avatar-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.header-profile-block + .settings-menu {
+  margin-left: 0.25rem;
+}
+
+.settings-menu {
+  position: relative;
+}
+
+.settings-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  background: var(--bg-secondary);
+  border: 2px solid var(--bg-tertiary);
+  border-radius: 0.75rem;
+  color: var(--text-secondary);
+  cursor: grab !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(8px);
+}
+
+.settings-trigger:hover {
+  color: var(--accent);
+  background: var(--bg-tertiary);
+  border-color: rgba(178, 148, 187, 0.35);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.settings-trigger:active {
+  cursor: grabbing !important;
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.settings-trigger.open {
+  border-color: var(--accent);
+  background-color: var(--bg-tertiary);
+  box-shadow: 0 0 0 3px rgba(178, 148, 187, 0.1);
+}
+
+.settings-trigger svg {
+  transition: transform 0.2s ease;
+}
+
+.settings-trigger:hover svg {
+  transform: rotate(45deg);
+}
+
+.settings-trigger.open svg {
+  transform: rotate(45deg);
+  color: var(--accent);
+}
+
+.settings-dropdown {
+  position: absolute;
+  top: calc(100% + 1rem);
+  right: 0;
+  min-width: 13rem;
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--bg-tertiary);
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+  z-index: 50;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px) scale(0.95);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.settings-dropdown.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  text-align: left;
+  cursor: grab !important;
+  transition: all 0.15s ease;
+  font-weight: 500;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.settings-item:last-child {
+  border-bottom: none;
+}
+
+.settings-item:hover {
+  background: var(--bg-tertiary);
+  color: var(--accent);
+  cursor: grabbing !important;
+}
+
+.settings-item:active {
+  cursor: grabbing !important;
+  background: var(--bg-tertiary);
+  transform: scale(0.98);
+}
+
+.settings-item.danger {
+  color: #ef4444;
+}
+
+.settings-item.danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+}
+
+.settings-item svg {
+  flex-shrink: 0;
+  transition: color 0.15s ease;
+}
+
+.settings-divider {
+  height: 1px;
+  background: var(--border-color);
+  margin: 0.25rem 0;
+}

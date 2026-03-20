@@ -1,0 +1,219 @@
+/*
+ * generic modal
+ * token modal
+ * subscription modal content styling
+ */
+
+.subscription-modal-content > div {
+  background: var(--bg-secondary) !important;
+  border: 2px solid var(--bg-tertiary);
+  color: var(--text-primary);
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.subscription-modal-content .border-t {
+  border: none;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.subscription-modal-content .subscription-modal-header {
+  color: var(--text-primary);
+}
+
+.subscription-modal-content .modal-icon-accent {
+  color: var(--accent);
+}
+
+.subscription-modal-content .modal-feature-box {
+  background: rgba(167, 139, 163, 0.06) !important;
+  border: 2px solid var(--bg-tertiary);
+  border-color: var(--border-color) !important;
+  color: var(--text-primary);
+}
+
+.subscription-modal-content .modal-check {
+  color: var(--accent);
+}
+
+.subscription-modal-content .modal-accent-text {
+  color: var(--accent);
+}
+
+.subscription-modal-content .modal-btn-primary {
+  background-color: var(--accent) !important;
+  color: var(--bg-primary) !important;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: 400;
+  cursor: grab;
+  transition: all 0.2s ease;
+}
+
+.subscription-modal-content .modal-btn-primary:hover {
+  filter: brightness(1.1);
+}
+
+.subscription-modal-content .modal-btn-secondary {
+  background: var(--bg-secondary) !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 0.5rem;
+  font-weight: 400;
+  padding: 0.5rem 1rem;
+  cursor: grab;
+  transition: all 0.2s ease;
+}
+
+.subscription-modal-content .modal-btn-secondary:hover {
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  background: var(--bg-tertiary) !important;
+}
+
+.subscription-modal-content .modal-btn-ghost {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: grab;
+  transition: color 0.2s ease;
+}
+
+.subscription-modal-content .modal-btn-ghost:hover {
+  color: var(--text-secondary);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 1000;
+  cursor: grab;
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
+  max-width: 90%;
+  max-height: 90%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#tokenModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 99;
+  align-items: center;
+  justify-content: center;
+}
+
+#tokenModal.visible {
+  display: flex;
+}
+
+.token-modal-content {
+  background: var(--bg-secondary);
+  padding: 2rem;
+  border-radius: 1rem;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  transform: translateY(0);
+  opacity: 1;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.token-input-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.token-input {
+  flex: 1;
+  background-color: var(--bg-tertiary);
+  border: 2px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.token-input:focus {
+  outline: none;
+  border-color: var(--text-muted);
+  box-shadow: 0 0 0 2px rgba(113, 113, 122, 0.1);
+}
+
+.token-submit {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 400;
+  transition: all 0.2s ease;
+}
+
+.token-submit:not(:disabled):hover {
+  color: var(--accent);
+  background-color: var(--bg-tertiary);
+  border-color: var(--accent);
+}
+
+.token-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.token-error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: none;
+}
+
+.blurred-token {
+  position: relative;
+  filter: blur(2px);
+  transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.blurred-token::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.05);
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  border-radius: 4px;
+}
+
+.blurred-token:hover {
+  filter: blur(0);
+  opacity: 1;
+}
+
+.blurred-token:hover::after {
+  opacity: 1;
+}

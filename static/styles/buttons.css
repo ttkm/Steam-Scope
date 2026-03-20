@@ -1,0 +1,149 @@
+/*
+ * buttons
+ * view
+ * lookup
+ * search
+ * disabled
+ * cursor states
+ */
+
+.view-btn {
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.75rem;
+  height: auto;
+  cursor: grab !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.view-btn:hover {
+  color: var(--accent);
+  background: var(--bg-tertiary);
+  border-color: rgba(178, 148, 187, 0.35);
+}
+
+.view-btn:active {
+  color: var(--accent);
+  background: var(--bg-tertiary);
+  border-color: var(--accent);
+  cursor: grabbing !important;
+}
+
+.view-btn.active {
+  color: var(--accent);
+  background: var(--bg-tertiary);
+  border-color: var(--accent);
+}
+
+.view-btn .relative {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.view-btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.lookup-btn {
+  background-color: var(--accent) !important;
+  font-weight: 400;
+}
+
+.lookup-btn:not(:disabled):hover {
+  filter: brightness(1.1);
+}
+
+.lookup-btn.active {
+  background-color: var(--accent) !important;
+  box-shadow: 0 0 0 1px rgba(167, 139, 163, 0.25);
+}
+
+.lookup-btn:disabled {
+  background-color: var(--text-muted) !important;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.search-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  box-sizing: border-box;
+  padding: 0 1.25rem;
+  background-color: var(--accent);
+  color: var(--bg-primary);
+  border: none;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  cursor: grab;
+  transition: all 0.2s ease;
+}
+
+.search-btn:hover {
+  filter: brightness(1.1);
+}
+
+.search-btn:active {
+  cursor: grabbing;
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.search-btn:disabled {
+  background-color: #bdb5c4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+button:disabled {
+  user-select: none;
+}
+
+button:disabled:active {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Universal cursor styles for clickable elements */
+a, button, input[type="button"], input[type="submit"], input[type="reset"],
+select, .avatar-container, [onclick], [role="button"],
+.group-card .avatar-container, .profile-header .avatar-container,
+.view-btn, .lookup-btn, .token-submit, .group-link,
+img[onclick], .font-mono[onclick], #steam32_id, #steam3_id,
+#steam_id64, #vanity_id, #logged-in-steamid, .settings-trigger, .settings-item {
+  cursor: grab !important;
+}
+
+a:active, button:active, input[type="button"]:active,
+input[type="submit"]:active, input[type="reset"]:active,
+select:active, .avatar-container:active, [onclick]:active,
+[role="button"]:active, .group-card .avatar-container:active,
+.profile-header .avatar-container:active, .view-btn:active,
+.lookup-btn:active, .token-submit:active, .group-link:active,
+img[onclick]:active, .font-mono[onclick]:active,
+#steam32_id:active, #steam3_id:active, #steam_id64:active,
+#vanity_id:active, #logged-in-steamid:active, .settings-trigger:active, .settings-item:active {
+  cursor: grabbing !important;
+}
+
+button:disabled, input:disabled, select:disabled,
+.lookup-btn:disabled, .token-submit:disabled {
+  cursor: not-allowed !important;
+}
+
+button:disabled:active, input:disabled:active, select:disabled:active,
+.lookup-btn:disabled:active, .token-submit:disabled:active {
+  cursor: not-allowed !important;
+}

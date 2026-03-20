@@ -1,0 +1,71 @@
+/*
+ * avatar
+ * containers
+ * view-icon
+ * profile stats
+ */
+
+.avatar-container {
+  cursor: grab;
+}
+
+.avatar-container:active {
+  transform: scale(0.98);
+  background-color: #3f3f46;
+  opacity: 0.5;
+}
+.avatar-container {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.avatar-container:hover img {
+  transform: scale(1.15);
+}
+
+.avatar-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 1;
+}
+
+.avatar-container:hover::before {
+  opacity: 1;
+}
+
+.avatar-container .view-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  color: white;
+  opacity: 0;
+  z-index: 2;
+  transition: all 0.2s ease;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.profile-header .avatar-container:hover .view-icon {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+#profile_stats {
+  background: var(--bg-primary);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}

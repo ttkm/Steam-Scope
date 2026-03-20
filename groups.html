@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>steamscope</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f59e0b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z'/><path d='M12 12v.01' stroke-width='1.5'/><path d='M12 8v.01' stroke-width='1.5'/></svg>">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/styles/shared.css">
+    <link rel="stylesheet" href="static/styles/groups-search.css">
+    <link rel="stylesheet" href="static/styles/img.css">
+  </head>
+
+  <body class="bg-gray-50 min-h-screen">
+    <div class="sticky-header">
+      <div class="container mx-auto px-6 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-6">
+            <h1 class="text-2xl font-bold text-gray-900">steamscope</h1>
+            <nav class="flex items-center gap-4">
+              <a href="index.html" class="nav-link">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <span>profiles</span>
+              </a>
+              <a href="groups.html" class="nav-link active">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                <span>groups</span>
+              </a>
+              <a href="ids.html" class="nav-link">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m-3-3v6m-7 4h14a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 01-2-2v-3a2 2 0 012-2z" />
+                </svg>
+                <span>id</span>
+              </a>
+            </nav>
+          </div>
+          <div class="flex items-center gap-4">
+            <a href="/api/auth/login?return_to=/steam/groups.html" id="loginBtn" class="inline-block opacity-90 hover:opacity-100 transition-opacity">
+              <img src="https://community.akamai.steamstatic.com/public/images/signinthroughsteam/sits_01.png" class="h-9 w-auto" style="max-height: 38px;">
+            </a>
+            <div id="userInfo" class="header-profile-block hidden">
+              <div id="userAvatarWrap" class="header-avatar-wrap hidden">
+                <img id="userAvatar" alt="" />
+              </div>
+            </div>
+            <div class="settings-menu relative hidden">
+              <button id="settingsToggle" onclick="toggleSettingsMenu()" class="settings-trigger">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </button>
+              <div id="settingsDropdown" class="settings-dropdown hidden">
+                <div class="settings-dropdown-content">
+                  <button onclick="doLogout()" class="settings-item">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    <span>logout</span>
+                  </button>
+                  <button onclick="clearCache()" class="settings-item">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    <span>clear cache</span>
+                  </button>
+                  <button onclick="clearAll()" class="settings-item danger">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    <span>clear cache & logout</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mx-auto px-8 py-8">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-6">
+          <p class="text-gray-600">discover steam groups using advanced search filters</p>
+        </div>
+
+        <div id="authGate" class="bg-container rounded-xl shadow-lg p-8 mb-6 text-center">
+          <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+          <p class="text-gray-500 mb-2">to prevent abuse, we require you to log in with steam</p>
+        </div>
+      </div>
+
+      <div id="searchContainer" class="hidden bg-container rounded-xl shadow-lg p-6 mb-6">
+        <div class="mb-6">
+          <div class="flex gap-4">
+            <div class="search-container relative flex-1">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <svg class="h-6 w-6 text-gray-400 transition-colors duration-200 group-hover:text-blue-500"
+                  xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <input type="text" id="main_search"
+                class="block w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl bg-white/50 backdrop-blur-sm focus:outline-none focus:border-blue-400 focus:bg-white transition-all duration-300 text-lg font-medium tracking-wide placeholder-gray-400 hover:border-blue-200 hover:bg-white hover:shadow-md focus:shadow-sm caret-blue-500 group"
+                placeholder="search..." autocomplete="off">
+              <div class="absolute inset-y-0 right-0 pr-4 flex items-center">
+                <button onclick="clearGroupSearch()"
+                  class="text-gray-400 hover:text-gray-600 transition-colors duration-200 hidden"
+                  id="clearGroupSearchBtn">
+                  <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <button onclick="searchGroups()" id="searchBtn" class="search-btn" disabled>
+                lookup
+              </button>
+            </div>
+          </div>
+
+          <div class="search-format-instructions" style="margin-top: 2rem !important;">
+            <p style="margin-top: 0 !important; margin-bottom: 0.5rem !important;">supported formats</p>
+            <ul>
+              <li>
+                <span class="format-type">general search:</span>
+                <span class="format-example">gaming <code>valve</code></span>
+                <span class="description">searches all fields (partial match)</span>
+              </li>
+              <li>
+                <span class="format-type">name search:</span>
+                <span class="format-example">name:<code>valve</code></span>
+                <span class="description">group display name only</span>
+              </li>
+              <li>
+                <span class="format-type">url search:</span>
+                <span class="format-example">url:<code>steamgroup</code></span>
+                <span class="description">community short url only</span>
+              </li>
+              <li>
+                <span class="format-type">tag search:</span>
+                <span class="format-example">tag:<code>gc</code></span>
+                <span class="description">abbreviated identifier only</span>
+              </li>
+            </ul>
+            <div class="match-types-info">
+              <p class="match-types-title">result badges</p>
+              <div class="match-badges-grid">
+                <div class="match-badge-item">
+                  <span class="match-badge full">3x</span>
+                  <span class="badge-explanation">name, url & tag are identical</span>
+                </div>
+                <div class="match-badge-item">
+                  <span class="match-badge db">2x</span>
+                  <span class="badge-explanation">two of the three fields match</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <div class="search-field">
+            <div class="filters-dropdown-container">
+              <button id="filtersBtn" class="filters-btn">
+                <div class="filters-btn-content">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                  </svg>
+                  <span>search filters</span>
+                </div>
+                <div class="filters-btn-right">
+                  <svg class="w-4 h-4 transition-transform duration-200" id="filtersChevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </div>
+              </button>
+
+              <div id="filtersDropdown" class="filters-dropdown hidden">
+                <div class="filter-group-full">
+                  <label class="filter-label">member count</label>
+                  <div class="slider-container">
+                    <div class="dual-slider-wrapper">
+                      <input type="range" id="members_min" class="dual-range-slider" min="1" max="100000" value="1" step="1">
+                      <input type="range" id="members_max" class="dual-range-slider" min="1" max="100000" value="100000" step="1">
+                      <div class="slider-track">
+                        <div class="slider-range" id="members_range"></div>
+                      </div>
+                    </div>
+                    <div class="slider-values">
+                      <span id="members_min_val">1</span>
+                      <span class="slider-separator">to</span>
+                      <span id="members_max_val" style="text-transform: lowercase">100k</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="filter-group-full">
+                  <label class="filter-label">founding year</label>
+                  <div class="slider-container">
+                    <div class="dual-slider-wrapper">
+                      <input type="range" id="year_min" class="dual-range-slider" min="2007" max="2015" value="2007" step="1">
+                      <input type="range" id="year_max" class="dual-range-slider" min="2007" max="2015" value="2015" step="1">
+                      <div class="slider-track">
+                        <div class="slider-range" id="year_range"></div>
+                      </div>
+                    </div>
+                    <div class="slider-values">
+                      <span id="year_min_val">2007</span>
+                      <span class="slider-separator">to</span>
+                      <span id="year_max_val">2015</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="filter-group">
+                  <label class="filter-label">exact match only</label>
+                  <div class="toggle-container">
+                    <label class="toggle-switch">
+                      <input type="checkbox" id="exact_match" checked>
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="filter-group">
+                  <label class="filter-label">search type</label>
+                  <div class="search-type-buttons">
+                    <button type="button" class="search-type-btn active" data-type="all">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                      all fields
+                    </button>
+                    <button type="button" class="search-type-btn" data-type="name">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                      name only
+                    </button>
+                    <button type="button" class="search-type-btn" data-type="url">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                      </svg>
+                      url only
+                    </button>
+                    <button type="button" class="search-type-btn" data-type="tag">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                      </svg>
+                      tag only
+                    </button>
+                  </div>
+                </div>
+
+                <div class="filter-group">
+                  <label class="filter-label">unicode filter</label>
+                  <select id="unicode_filter" class="unicode-filter-select">
+                    <option value="all">show all</option>
+                    <option value="unicode">unicode only</option>
+                    <option value="non-unicode">non-unicode only</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="loading" class="loading text-center py-8">
+          <div class="loading-spinner-small">
+            <div class="loading-spinner-small-circle"></div>
+            <div class="loading-spinner-small-circle"></div>
+          </div>
+          <p id="loading-message" class="mt-4 text-gray-600">search criteria...</p>
+        </div>
+
+        <div id="results" class="hidden">
+          <div id="unicode_disclaimer_groups" class="hidden mb-6 bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-amber-100/20 to-orange-100/20 backdrop-blur-sm"></div>
+            <div class="relative">
+              <div class="p-6">
+                <button onclick="hideGroupsUnicodeDisclaimer()" class="absolute top-4 right-4 text-amber-600/60 hover:text-amber-800 transition-all duration-200 p-1.5 rounded-full hover:bg-amber-100/50 hover:rotate-90">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+                <div class="flex items-start gap-5">
+                  <div class="flex-1 space-y-2.5">
+                    <h3 class="font-semibold text-lg tracking-wide flex items-center gap-3">
+                      <div class="flex-shrink-0">
+                        <div class="p-2 bg-amber-100/40 rounded-lg flex items-center justify-center w-9 h-9">
+                          <svg class="w-5 h-5 text-amber-700/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.75" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                      </div>
+                      <span class="text-amber-800">unicode detection [beta]</span>
+                    </h3>
+                    <p class="leading-relaxed text-amber-800/85 text-[15px]">
+                      groups containing characters outside the
+                      <a href="https://www.ascii-code.com/" target="_blank" class="font-medium underline decoration-amber-300/50 hover:decoration-amber-400 transition-all duration-200 hover:text-amber-900">ascii range</a> 
+                      <span class="text-amber-700/80 font-mono text-sm">(0-127)</span> are marked as
+                      <a href="https://deliciousbrains.com/how-unicode-works/" target="_blank" class="font-medium underline decoration-amber-300/50 hover:decoration-amber-400 transition-all duration-200 hover:text-amber-900">unicoded</a> 
+                      & will have a <strong>view raw</strong> button to inspect the characters - detection is based on character encoding analysis & may have false positives
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-2xl font-semibold text-gray-900 mb-4">search results</h2>
+              <div class="flex items-center gap-4">
+                <div class="text-sm text-gray-500">
+                  <span id="results_count">0 groups found</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button onclick="changeView('grid-1')" class="view-btn active" data-view="grid-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 6h14M5 12h14M5 18h14" />
+                    </svg>
+                  </button>
+                  <button onclick="changeView('grid-2')" class="view-btn" data-view="grid-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <rect x="4" y="5" width="7" height="6" rx="1" stroke-width="1.5" />
+                      <rect x="13" y="5" width="7" height="6" rx="1" stroke-width="1.5" />
+                      <rect x="4" y="13" width="7" height="6" rx="1" stroke-width="1.5" />
+                      <rect x="13" y="13" width="7" height="6" rx="1" stroke-width="1.5" />
+                    </svg>
+                  </button>
+                  <button onclick="changeView('grid-3')" class="view-btn" data-view="grid-3">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <rect x="3" y="3" width="4" height="4" rx="1" stroke-width="1.5" />
+                      <rect x="10" y="3" width="4" height="4" rx="1" stroke-width="1.5" />
+                      <rect x="17" y="3" width="4" height="4" rx="1" stroke-width="1.5" />
+                      <rect x="3" y="10" width="4" height="4" rx="1" stroke-width="1.5" />
+                      <rect x="10" y="10" width="4" height="4" rx="1" stroke-width="1.5" />
+                      <rect x="17" y="10" width="4" height="4" rx="1" stroke-width="1.5" />
+                      <rect x="3" y="17" width="4" height="4" rx="1" stroke-width="1.5" />
+                      <rect x="10" y="17" width="4" height="4" rx="1" stroke-width="1.5" />
+                      <rect x="17" y="17" width="4" height="4" rx="1" stroke-width="1.5" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="groups_container" class="grid grid-cols-1 gap-4" data-view="grid-1">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="error" class="hidden bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg relative" role="alert">
+        <span class="block sm:inline"></span>
+      </div>
+    </div>
+    </div>
+
+    <div class="loading-screen" id="loadingScreen" style="display:none">
+      <div class="loading-container">
+        <div class="loading-spinner">
+          <div class="loading-spinner-circle"></div>
+          <div class="loading-spinner-circle"></div>
+        </div>
+        <div class="loading-text">steamscope</div>
+        <div class="loading-subtext">loading...</div>
+      </div>
+    </div>
+
+    <div id="imageModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center" onclick="closeImageModal()">
+      <img class="modal-content" id="modalImage">
+    </div>
+
+    <script src="static/js/utils.js"></script>
+    <script src="static/js/cache.js" defer></script>
+    <script src="static/js/loading.js" defer></script>
+    <script src="static/js/auth.js" defer></script>
+    <script src="static/js/settings.js" defer></script>
+    <script src="static/js/groups-search.js" defer></script>
+  </body>
+
+</html>
+

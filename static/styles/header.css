@@ -1,0 +1,63 @@
+/*
+ * sticky header
+ * nav links
+ * notification z index
+ */
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid var(--border-color);
+  z-index: 50;
+  background: var(--bg-primary);
+  padding: 0.5rem 0;
+  will-change: auto;
+  transition: padding 0.28s ease-out;
+}
+
+.sticky-header > .container {
+  transition: padding-top 0.28s ease-out, padding-bottom 0.28s ease-out;
+}
+
+.sticky-header.scrolled {
+  padding: 0.125rem 0;
+  border-bottom-width: 1px;
+  box-shadow: 0 1px 0 var(--border-color);
+}
+
+.sticky-header.scrolled > .container {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.sticky-header.scrolled h1 {
+  font-size: 1rem;
+}
+
+.sticky-header h1 {
+  transition: font-size 0.28s ease-out;
+}
+
+.notification,
+#notification-container {
+  z-index: 9999 !important;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.nav-link.active,
+.nav-link:hover {
+  color: var(--accent);
+  background: var(--bg-tertiary);
+}
